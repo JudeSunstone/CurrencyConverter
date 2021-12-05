@@ -1,9 +1,4 @@
-const start = function(){
-
-}();
-
-
-const asyncZ = async function(){
+const app = async function(){
     const example = new ExhangeRate ();
     console.log(await example.getCoefficient("USD", "RUB"));
     const view = new View(); 

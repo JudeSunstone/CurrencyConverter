@@ -33,7 +33,8 @@ class View {
             else item.el.classList.remove(this.page.selectClass);      
        });
        
-       /*Это модель, как если на кажду кнопку навешивать события 
+       /*
+       Это модель, как если на кажду кнопку навешивать события 
         leftSum.value = leftinput; в инпут записываем значение от пользователя и отдаем в метод
         leftSum.value = rightinput;
         if(leftbtn == "RUB") leftRub.classList.add('select-button');
@@ -43,12 +44,13 @@ class View {
 
     render(leftbtn, rightbtn, leftinput, rightinput) {
         this.makeButtons(leftbtn, 'left');
+        /* leftbtn - это "RUB" и прочее */
         this.makeButtons(rightbtn, 'right');
 
         this.page.left.input.value = leftinput;
         this.page.right.input.value = rightinput;
 
-        this.page.left.hint.innerText = `1 ${leftbtn} = ${}`;
-        this.page.right.hint.innerText = `1 ${} = ${}`;
+        this.page.left.hint.innerText = `1 ${leftbtn} = ${leftinput/rightinput} ${rightbtn}`;
+        this.page.right.hint.innerText = `1 ${rightbtn} = ${rightinput/leftinput} ${lefttbtn}`;
     }
 }
