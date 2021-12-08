@@ -32,7 +32,6 @@ class View {
             if(item.name == leftbtn)  item.el.classList.add(this.page.selectClass); 
             else item.el.classList.remove(this.page.selectClass);      
        });
-       
        /*
        Это модель, как если на кажду кнопку навешивать события 
         leftSum.value = leftinput; в инпут записываем значение от пользователя и отдаем в метод
