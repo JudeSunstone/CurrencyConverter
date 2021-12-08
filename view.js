@@ -24,7 +24,7 @@ class View {
             }, 
             selectClass: "select-button"
 
-        }; /*существование кнопок*/
+        }; /*описываем модель, с которой будем работать*/
     }
 
     makeButtons(btn, leftororight) {

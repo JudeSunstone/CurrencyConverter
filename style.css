@@ -140,7 +140,7 @@ button {
     font-weight: bold;
     width: 231px; /* 20vw */
 }
-#hint {
+#leftHint, #rightHint {
     font-size: 12px; /***/
     line-height: 28px;/**/
     color: #C6C6C6;

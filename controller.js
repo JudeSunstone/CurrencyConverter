@@ -1,36 +1,32 @@
 /* должен работать с клиентом и с остальными классами */
 class Controller {
-    constructor(view, model) {
+    constructor(model, view) {
+        this.model = model;   
         this.view = view;
-        this.model = model;
-        this.leftInput = 0; 
-        this.rightInput = 0; 
         this.rightBtn = "USD"; 
-        this.leftBtn = "RUB";
-        this.coefficient = 0;
+        this.leftBtn = "RUB"; /*по умолчанию */
+        this.leftInput = 1; 
+        this.rightInput = 1; 
+        this.coefficient = 1;
     }
 
-    getCallBackFromButtons(leftoright, currency){ //string
-        return (e) => {
-            if(leftoright == 'left') {
-                this.leftBtn = currency;
-                this.coefficient = this.model.getCoefficient(this.leftBtn, this.rightBtn);
-                this.rightInput = this.leftInput * this.coefficient;
-            }
-            if(leftoright == 'right') {
-                this.rightBtn = currency;
-                this.coefficient = this.model.getCoefficient(this.leftBtn, this.rightBtn);
-                this.leftInput = this.rightInput / this.coefficient;
-            }
-            this.renderer();
+    getCallBackFromButtons(inpKey, btnKey, btnName) { //string
+        const func = (e) => {
+            this[btnKey] = btnName; /*item.name*/
+            this.coefficient = this.model.getCoefficient(this.leftBtn, this.rightBtn);
+            this[inpKey] = inpKey == 'leftInput' ? 
+                this.rightInput / this.coefficient : 
+                this.rightInput * this.coefficient;
+            this.rend();
         };
+        return func;
     }
 
-    renderer() {
-        this.view.render(this.leftInput, this.rightInput, this.leftBtn, this.leftInput);
+    rend() {
+        this.view.renderer(this.leftBtn, this.rightBtn, this.leftInput, this.rightInput);
     }
 
-    init() { 
+    async init() { 
             this.model.page.left.buttons.forEach((item) => {
                 item.el.addEventListener('click', this.getCallBackFromButtons('left', item.name));
             });
@@ -39,12 +35,18 @@ class Controller {
             });
             this.model.page.left.input.addEventListener('keyup', (e) => {
                 this.leftInput = isNaN(e.target.value) ? this.leftInput : e.target.value; //проверяем, чтобы ввод был числом
+                this.rightInput = this.leftInput * this.coefficient;
                 this.renderer();
             });
             this.model.page.right.input.addEventListener('keyup', (e) => {
                 this.rightInput = isNaN(e.target.value) ? this.rightInput : e.target.value; //проверяем, чтобы ввод был числом
+                this.leftInput = this.rightInput / this.coefficient;
                 this.renderer();
             });
+
+            this.coefficient = await this.model.getCoefficient(this.left, this.right);
+            
+            this.renderer();
         }
 
 }
