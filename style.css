@@ -4,7 +4,8 @@
 1) Как сделать все адаптивным vw/vh
 пиксели делить на 1152 и умножить 100? 
 получается свосем другое, не как по макету
-2) Что с навигацией. Отступы - костыль. space between не работает
+2 Навигация - не те отступы + где отделены валюты?
+3) почему flex wrap не работает
 */
 body {
     min-width: 1152px;
@@ -20,13 +21,19 @@ body {
     width: 940px; /*83vwслишком широко!*/
     margin: 0 auto;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
 }
-.navigation {
+.img-wrapper, .button-wrapper {
+    width: 22.5%;
     display: flex;
-    /*justify-content: space-between;*/
-    /*align-items: center;*/
+    justify-content: center;
+    align-items: center;
+}
+
+.navigation {
+    width: 54%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .nav-item {
     font-weight: 500;
@@ -35,7 +42,8 @@ body {
     letter-spacing: 0.06em;
     color: #959BA4;
     text-transform: uppercase;
-    margin-right: 25px;
+    /*margin-right: 25px; - без отступов не получается нормально*/
+    list-style: none;
 }
 .nav-item:hover {
     color: #000000;
@@ -44,8 +52,6 @@ body {
 button {
     font-weight: 500;
     font-size: 11px;
-    display: flex;
-    align-items: center;
     text-align: center;
     letter-spacing: 0.06em;
     background: #FFFFFF;
@@ -55,10 +61,8 @@ button {
     outline: none;
     border: none;
 }
-/*кнопка так ли сделана?*/
-
 .container {
-    width: 641px; /* 56vw должно быть*/
+    max-width: 641px; /* 56vw должно быть*/
     margin: 0 auto;
 }
 .title {
@@ -72,12 +76,14 @@ button {
 .converter-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap; /*почему не работает*/
+   
 }
 .converter-block {
-    width:259px; /* 22.5vw */
+    max-width: 41%; /* 259px22.5vw */
+    min-width: 180px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 .converter-title {
     font-family: Roboto;
