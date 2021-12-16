@@ -29,7 +29,7 @@ class View {
 
     makeButtons(btn, leftororight) {
         this.page[leftororight].buttons.forEach((item) => {
-            if(item.name == leftbtn)  item.el.classList.add(this.page.selectClass); 
+            if(item.name == btn)  item.el.classList.add(this.page.selectClass); 
             else item.el.classList.remove(this.page.selectClass);      
        });
        /*
@@ -41,7 +41,7 @@ class View {
         */
     }
 
-    render(leftbtn, rightbtn, leftinput, rightinput) {
+    renderer(leftbtn, rightbtn, leftinput, rightinput) {
         this.makeButtons(leftbtn, 'left');
         /* leftbtn - это "RUB" и прочее */
         this.makeButtons(rightbtn, 'right');
@@ -50,6 +50,6 @@ class View {
         this.page.right.input.value = rightinput;
 
         this.page.left.hint.innerText = `1 ${leftbtn} = ${leftinput/rightinput} ${rightbtn}`;
-        this.page.right.hint.innerText = `1 ${rightbtn} = ${rightinput/leftinput} ${lefttbtn}`;
+        this.page.right.hint.innerText = `1 ${rightbtn} = ${rightinput/leftinput} ${leftbtn}`;
     }
 }

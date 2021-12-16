@@ -8,9 +8,10 @@ class Controller {
         this.leftInput = 1; 
         this.rightInput = 1; 
         this.coefficient = 1;
-    }
+    } 
 
     getCallBackFromButtons(inpKey, btnKey, btnName) { //string
+        console.log(btnName);
         const func = (e) => {
             this[btnKey] = btnName; /*item.name*/
             this.coefficient = this.model.getCoefficient(this.leftBtn, this.rightBtn);
@@ -27,26 +28,26 @@ class Controller {
     }
 
     async init() { 
-            this.model.page.left.buttons.forEach((item) => {
+            this.view.page.left.buttons.forEach((item) => {
                 item.el.addEventListener('click', this.getCallBackFromButtons('left', item.name));
             });
-            this.model.page.right.buttons.forEach((item) => {
+            this.view.page.right.buttons.forEach((item) => {
                 item.el.addEventListener('click', this.getCallBackFromButtons('right', item.name));
             });
-            this.model.page.left.input.addEventListener('keyup', (e) => {
+            this.view.page.left.input.addEventListener('keyup', (e) => {
                 this.leftInput = isNaN(e.target.value) ? this.leftInput : e.target.value; //проверяем, чтобы ввод был числом
                 this.rightInput = this.leftInput * this.coefficient;
-                this.renderer();
+                this.rend();
             });
-            this.model.page.right.input.addEventListener('keyup', (e) => {
+            this.view.page.right.input.addEventListener('keyup', (e) => {
                 this.rightInput = isNaN(e.target.value) ? this.rightInput : e.target.value; //проверяем, чтобы ввод был числом
                 this.leftInput = this.rightInput / this.coefficient;
-                this.renderer();
+                this.rend();
             });
 
             this.coefficient = await this.model.getCoefficient(this.left, this.right);
             
-            this.renderer();
+            this.rend();
         }
 
 }

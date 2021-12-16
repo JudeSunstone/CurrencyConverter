@@ -1,10 +1,8 @@
 class ExhangeRate {
     constructor(base, symbol, response){
-        
     }
     /* делаем кеширование */
     toCash(base, symbol, response){
-
     }
 
     async getCoefficient (base, symbol) {
@@ -13,6 +11,7 @@ class ExhangeRate {
         let response = await fetch(`https://api.exchangerate.host/latest?base=${base}&symbols=${symbol}`);
             response = await response.json();
             response = response.rates[symbol];
+            console.log(response);
         return response;
     }
 }
