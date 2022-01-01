@@ -28,6 +28,7 @@ class View {
     }
 
     makeButtons(btn, leftororight) {
+        
         this.page[leftororight].buttons.forEach((item) => {
             if(item.name == btn)  item.el.classList.add(this.page.selectClass); 
             else item.el.classList.remove(this.page.selectClass);      
@@ -47,9 +48,9 @@ class View {
         this.makeButtons(rightbtn, 'right');
 
         this.page.left.input.value = leftinput;
-        this.page.right.input.value = rightinput;
-
-        this.page.left.hint.innerText = `1 ${leftbtn} = ${leftinput/rightinput} ${rightbtn}`;
-        this.page.right.hint.innerText = `1 ${rightbtn} = ${rightinput/leftinput} ${leftbtn}`;
+        this.page.right.input.value = rightinput.toFixed(2);
+       
+        this.page.left.hint.innerText = `1 ${leftbtn} = ${(leftinput/rightinput).toFixed(2)} ${rightbtn}`;
+        this.page.right.hint.innerText = `1 ${rightbtn} = ${(rightinput/leftinput).toFixed(2)} ${leftbtn}`;
     }
 }

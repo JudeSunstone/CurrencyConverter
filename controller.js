@@ -1,26 +1,31 @@
 /* должен работать с клиентом и с остальными классами */
 class Controller {
     constructor(model, view) {
+        // Зависимости (модель и вьюха)
         this.model = model;   
         this.view = view;
+
         this.rightBtn = "USD"; 
         this.leftBtn = "RUB"; /*по умолчанию */
-        this.leftInput = 1; 
-        this.rightInput = 1; 
-        this.coefficient = 1;
+        this.leftInput = 1000; 
+        this.rightInput = ""; 
+        this.coefficient = 1; /* ВЗЯТЬ ИЗ ЗАПРОСА */
     } 
 
-    getCallBackFromButtons(inpKey, btnKey, btnName) { //string
-        console.log(btnName);
-        const func = (e) => {
-            this[btnKey] = btnName; /*item.name*/
-            this.coefficient = this.model.getCoefficient(this.leftBtn, this.rightBtn);
-            this[inpKey] = inpKey == 'leftInput' ? 
-                this.rightInput / this.coefficient : 
-                this.rightInput * this.coefficient;
+    getCallBackFromButtons(inpKey, btnName) { //string
+        const func = async (e) => {
+            console.log(inpKey, btnName);
+            if (inpKey === 'left') {
+                this.leftBtn = btnName;
+                this.coefficient = await this.model.getCoefficient(this.leftBtn, this.rightBtn); 
+            } else {
+                this.rightBtn = btnName;
+                this.coefficient = await this.model.getCoefficient(this.leftBtn, this.rightBtn);
+            }
+            this.rightInput = this.leftInput * this.coefficient;
             this.rend();
         };
-        return func;
+        return func; 
     }
 
     rend() {
